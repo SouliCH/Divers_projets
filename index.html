@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi des modules CPNE INGES</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        
+        <!-- EN-TÊTE : Titre à gauche, Logo à droite -->
+        <header style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+            <div>
+                <h1 style="margin: 0 0 5px 0; font-size: 36px;">Suivi des modules CPNE INGES</h1>
+                <p style="margin: 0; color: #666;">Tableau de bord de progression, objectifs détaillés et agenda scolaire</p>
+            </div>
+            <div>
+                <img src="logo-cpne.JPG" alt="Logo CPNE" style="height: 60px; width: auto; object-fit: contain; display: block;">
+            </div>
+        </header>
+
+        <!-- BOUTON MICRO CENTRÉ -->
+        <div style="margin-bottom: 30px; text-align: center; width: 100%;">
+            <button id="btn-micro" style="padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                🎤 Activer la commande vocale
+            </button>
+            <span id="micro-statut" style="margin-left: 10px; color: gray; font-style: italic;"></span>
+        </div>
+
+        <!-- SECTION 1 : TABLEAU DE SUIVI DES COURS -->
+        <class="card">
+            <h2>Tableau de bord</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Objectifs du cours</th>
+                        <th>Support PDF</th>
+                        <th>Début / Fin</th>
+                        <th>Date d'examen</th>
+                        <th>Avancement (Gantt)</th>
+                    </tr>
+                </thead>
+                <tbody id="modules-tbody">
+    <!-- Le script JavaScript va injecter tous les cours ici automatiquement -->
+</tbody>
+            </table>
+            <!-- ZONE D'AFFICHAGE DU PDF (MODE FOCUS) -->
+<div id="pdf-viewer-container" style="display: none; margin-top: 30px; margin-bottom: 30px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <div style="background: #2c3e50; padding: 10px 20px; border-radius: 5px 5px 0 0; display: flex; justify-content: space-between; align-items: center;">
+        <h3 id="titre-pdf" style="color: white; margin: 0; font-size: 18px;">Support de cours</h3>
+        <div>
+            <button id="btn-micro-pdf" style="background: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; margin-right: 10px;">🎙️ Micro</button>
+            <button id="btn-fermer-pdf" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px;">❌ Quitter le mode focus</button>
+        </div>
+    </div>
+    <!-- C'est ici que le PDF va s'afficher -->
+    <iframe id="pdf-iframe" src="" width="100%" height="800px" style="border: 2px solid #2c3e50; border-top: none; border-radius: 0 0 5px 5px;"></iframe>
+</div>
+    </div>
+
+        <!-- SECTION 2 : AGENDA SCOLAIRE -->
+        <div class="card">
+            <h2>Agenda scolaire</h2>
+            <div class="agenda-grid">
+                <div class="agenda-day">
+                    <h3>Lundi</h3>
+                    <div class="agenda-event" id="lundi"></div>
+                </div>
+                <div class="agenda-day">
+                    <h3>Mardi</h3>
+                    <div class="agenda-event" id="mardi"></div>
+                </div>
+                <div class="agenda-day">
+                    <h3>Mercredi</h3>
+                    <div class="agenda-event" id="mercredi"></div>
+                </div>
+                <div class="agenda-day">
+                    <h3>Jeudi</h3>
+                    <div class="agenda-event" id="jeudi"></div>
+                </div>
+                <div class="agenda-day">
+                    <h3>Vendredi</h3>
+                    <div class="agenda-event" id="vendredi"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <!-- PIED DE PAGE -->
+<footer style="margin-top: 50px; padding: 20px 0; text-align: center; border-top: 1px solid #ddd; color: #666; font-size: 14px;">
+    <p>Réalisé avec ❤️ par <strong>Christelle Souliman</strong> | Assistant : Gemini</p>
+</footer>
+</body>
+</html>

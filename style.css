@@ -1,0 +1,272 @@
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1450px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+header div:first-child {
+    flex-grow: 1;
+    text-align: center; /* Centre le titre et le sous-titre */
+}
+
+header h1 {
+    color:rgb(90, 3, 90);
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #666;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.card h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 1200px;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #f1f4f8;
+}
+
+/* Badges colorés pour chaque matière */
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.badge-algo { background-color: #8e44ad; color: white; }       
+.badge-proc { background-color: #e74c3c; color: white; }       
+.badge-connaissance { background-color: #16a085; color: white; }       
+.badge-proc { background-color: #0400d3; color: white; }       
+.badge-entreprise { background-color: #26ea43; color: white; }       
+.badge-conflits { background-color: #d923a2; color: white; }        
+
+/* Liste des objectifs avec cases à cocher */
+.objectifs-list {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    font-size: 0.9em;
+}
+
+.objectifs-list li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.objectifs-list input[type="checkbox"] {
+    accent-color: var(--accent-color);
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+}
+
+.date-box {
+    font-size: 0.85em;
+    color: #555;
+    line-height: 1.4;
+}
+
+.exam-date {
+    font-weight: bold;
+    color: #c0392b;
+    font-size: 0.95em;
+}
+
+/* Style pour les liens PDF */
+.pdf-link {
+    display: inline-flex;
+    align-items: center;
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85em;
+    background-color: #ebf5fb;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #aed6f1;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.pdf-link:hover {
+    background-color: #d4e6f1;
+    text-decoration: underline;
+}
+
+/* Barre de type "Gantt" */
+.gantt-bar-container {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    height: 20px;
+    width: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gantt-progress {
+    background-color: var(--accent-color);
+    height: 100%;
+    border-radius: 4px;
+    text-align: right;
+    font-size: 0.7em;
+    color: white;
+    padding-right: 5px;
+    line-height: 20px;
+}
+
+/* Styles pour la section Agenda */
+.agenda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.agenda-day {
+    background-color: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.agenda-day h3 {
+    margin-top: 0;
+    color: var(--accent-color);
+    font-size: 1.05em;
+    border-bottom: 1px dashed #cbd5e1;
+    padding-bottom: 5px;
+}
+
+.agenda-event {
+    background-color: white;
+    border-left: 4px solid var(--accent-color);
+    padding: 8px;
+    margin-top: 8px;
+    font-size: 0.85em;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+tr th:nth-child(2), 
+tr td:nth-child(2) {
+    border-right: 1px solid var(--border-color);
+    padding-right: 20px;
+}
+
+/* Espace pour aérer la colonne PDF (3ème colonne) */
+tr th:nth-child(3), 
+tr td:nth-child(3) {
+    padding-left: 20px;
+}
+
+/* Effet visuel pour les modules archivés */
+.module-archive {
+    opacity: 0.5;
+    filter: grayscale(80%);
+    background-color: #f8f9fa;
+    pointer-events: none; /* Empêche de cliquer sur les cases une fois archivé */
+}
+body.dark-mode footer {
+    border-top-color: #333 !important;
+    color: #aaa !important;
+}
+
+/* Mode Sombre Complet */
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+/* Cartes, tableaux et conteneurs */
+body.dark-mode .card,
+body.dark-mode table,
+body.dark-mode th,
+body.dark-mode td,
+body.dark-mode tr {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #333333 !important;
+}
+
+/* Titres et textes */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode label,
+body.dark-mode span {
+    color: #ffffff !important;
+}
+
+/* Agenda scolaire */
+body.dark-mode .agenda-day {
+    background-color: #252525 !important;
+    border-color: #3d3d3d !important;
+}
+
+body.dark-mode .agenda-event {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border-left-color: var(--accent-color) !important;
+}

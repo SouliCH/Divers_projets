@@ -1,0 +1,231 @@
+const fs = require('fs');
+const path = require('path');
+const ical = require('ical');
+const https = require('https');
+
+// --- CONFIGURATION ---
+const URL_ICAL = "https://horaires-mala-aurore-evole.s2.rpn.ch/Telechargements/ical/Edt_Souliman.ics?version=2026.4.7.2&icalsecurise=CBB1C59AC13DE4F9428B3C40222796D71745FFF7B44DAE559748969DDB78D5910A6C5442802E372EB5159DCD3EF9CB7E&param=643d5b312e2e36325d2666683d3126663d31";
+const CHEMIN_DONNEES = path.join(__dirname, 'donnees.json');
+
+// --- LISTE DES COURS ---
+const mesCours = [
+    {
+        nom: "Algorithme",
+        badgeClass: "badge-algo",
+        objectifs: [
+            "Analyser une situation pratique simple et la représenter",
+            "Appliquer les algorithmes de base en programmation",
+            "Différentier les structures de données (variables, constantes, fonctions, etc.)",
+            "Différentier les structures de contrôles (boucles, séquences)",
+            "Transférer les enseignements importants du module dans leur activité professionnelle",
+            "Graphique NSD (structogramme), ordinogramme, pseudo-code (Français structuré), cas d’utilisation (Use case)",
+            "Comptage (également comptage sélectif)",
+            "Accumulation, tris de tableaux",
+            "Mise en place d’un fichier d’analyse : Clique pdf pour détails"
+        ],
+        pdf: "1-1-2 ING_Branche_ALGO_Descriptif.pdf",
+        debut: "28.08.2026",
+        fin: "18.12.2026",
+        examen: "23.10.2026",
+        progression: 0
+    },
+    {
+        nom: "Langage procédural",
+        badgeClass: "badge-proc",
+        objectifs: [
+            "Comprendre les bases du langage procédural",
+            "Écrire des fonctions et procédures",
+            "Savoir écrire un programme à l’aide d’un langage de programmation structuré",
+            "Connaitre et savoir utiliser les différentes expressions d’un langage de programmation",
+            "Comprendre la notion de maintenabilité du code ; bonnes pratiques",
+            "Comprendre les différentes étapes d'implantation d'un algorithme dans un langage de programmation",
+            "Choisir le type de données à utiliser en fonction des éléments manipulés dans la résolution d'un problème",
+            "Transférer les enseignements importants du module dans leur activité professionnelle",
+            "Utilisation d’outils de développement professionnel : Langage (Java, C#, etc.) et environnement de développement (Visual, IntelliJ, Netbeans, etc.)",
+            "Schéma block IPO (entrées/sorties)",
+            "Expressions (opérateurs)",
+            "Types primitifs (Variables et constantes)",
+            "Structures de tests",
+            "Structures de répétition",
+            "Méthodes (fonctions/procédures)",
+            "Tableaux",
+            "Types primitifs : lowerCamelCase",
+            "Méthodes : UpperCamelCase (PascalCase)",
+            "Commentaires",
+            "Indentation",
+            "Documentation des méthodes (entêtes)",
+            "Structures des fichiers",
+            "Compilation",
+            "Debug"
+        ],
+        pdf: "1-1-1 ING_Branche_L-PROC_Descriptif.pdf",
+        debut: "28.08.2026",
+        fin: "18.12.2026",
+        examen: "18.12.2026",
+        progression: 0
+    },
+    {
+        nom: "Connaissance de soi",
+        badgeClass: "badge-connaissance",
+        objectifs: [
+            "Porter un regard critique sur leurs forces et faiblesses et proposer des mesures pour travailler sur les points d’amélioration ou décider du maintien de son fonctionnement actuel en le justifiant",
+            "Remettre en question l’image qu’ils se font d’eux-mêmes (image de soi) et l’image que les autres se font d’eux (image extérieure) et proposer des mesures visant à faire évoluer",
+            "Reconnaissent leurs limites personnelles en lien avec la capacité de résistance et proposer des mesures efficaces de développement",
+            "Sont conscients de leur capacité à gérer la frustration et proposer des mesures efficaces pour une meilleure gestion",
+            "Reconnaissent leurs modèles de comportement et leurs propres modes de comportement avec les effets qu’ils ont sur les autres",
+            "Sont conscients des effets que peuvent avoir leurs attitudes et leur conception des valeurs sur leur environnement respectif",
+            "Sont conscients de leur capacité à assumer des responsabilités et à prendre des risques ainsi que de leur comportement décisionnel",
+            "Faire face au changement : étapes et résistances",
+            "Construction identitaire de la personnalité et les valeurs agissantes",
+            "Image de soi, perception des autres",
+            "Définir son potentiel et ses limites",
+            "Assumer sa responsabilité, éviter le triangle dramatique de Karpman",
+            "Reconnaître et renforcer les aspects valorisants",
+            "Support de cours",
+            "Etablir un plan de développement personnel"
+        ],
+        pdf: "PEC_2021_ECO-ES_Descriptif_de branche_connaissance_de_soi.pdf",
+        debut: "26.08.2026",
+        fin: "30.09.2026",
+        examen: "08.12.2026",
+        progression: 0
+    },
+    {
+        nom: "Gestion d'entreprise",
+        badgeClass: "badge-entreprise",
+        objectifs: [
+            "S’informer (activités de veille) des évolutions mondiales, internationales, nationales ou locales",
+            "Évaluer les répercussions de ces évolutions sur le contexte stratégique, opérationnel et organisationnel de leur entreprise",
+            "Prendre en compte de manière adaptée l’organisation normative de l’entreprise dans l’exercice de leurs activités",
+            "Comprendre les liens entre la philosophie de l’entreprise, la vision, la mission et les valeurs et s’engager activement à leur élaboration ou à leur développement",
+            "Comprendre les interactions entre la stratégie, la structure et la culture d’entreprise (moment d’ordre)",
+            "Analyser une situation concrète d’entreprise en se basant sur le nouveau modèle de management de Saint-Gall",
+            "Partager et échanger leur expérience avec leurs collègues et/ou collaborateurs, afin d’engager un processus d’apprentissage et d’amélioration continue au sein de leur service/équipe",
+            "Décrire l’entreprise en tant que système complexe en se basant sur le nouveau modèle de management de l’Université de Saint-Gall",
+            "Représenter les principaux éléments du nouveau modèle de management de l’Université de Saint-Gall et leurs relations d’interdépendance",
+            "Expliquer les raisons de l’activité économique et les facteurs d’influence externe sur les entreprises",
+            "Rédiger une mission, une vision et des objectifs stratégiques adaptés à un contexte d’entreprise donné",
+            "Interpréter la mission de l’entreprise dans son environnement économique et en déduire les effets sur l’individu et la société",
+            "Concevoir l’entreprise comme un ensemble de processus-clés (management, opérationnel, soutien) interdépendants"
+        ],
+        pdf: "1-1.1_PEC 2021_1ECOES_Gestion dentreprise_2024.pdf",
+        debut: "25.08.2026",
+        fin: "09.11.2026",
+        examen: "09.11.2026",
+        progression: 0
+    },
+    {
+        nom: "Gestion des conflits",
+        badgeClass: "badge-conflits",
+        objectifs: [
+        "Garantir, dans leur domaine de responsabilité, une conduite efficace adaptée à la situation.",
+        "Maximiser l’apport de valeur de leur équipe aux objectifs et aux résultats de l'organisation.",
+        "Créer en tant que réseauteur des liens entre les personnes de l’entreprise et de son environnement, conduire des équipes et résoudre des situations de conflit.",
+        "Développer l'esprit d’initiative et la responsabilité individuelle au sein de l’équipe.",
+        "Connaître divers styles de conduite et les utiliser selon la situation.",
+        "Connaître et pouvoir évaluer les chances et les risques liés à divers modèles de conduite.",
+        "Diriger les collaborateurs selon la situation et de manière conséquente.",
+        "Fournir en tant que leader des axes d’orientation dans un environnement dynamique et montrer l'exemple.",
+        "Accorder de l’intérêt aux collaborateurs et à leurs préoccupations (empathie).",
+        "Déléguer des compétences et des responsabilités et utiliser la délégation contrôlée comme instrument de développement.",
+        "Aider les collaborateurs à élargir leur horizon en fonction de leurs points forts.",
+        "Confier des missions aux collaborateurs en fonction de leurs capacités et de leurs besoins, encourager et solliciter l’autogestion des collaborateurs.",
+        "Discerner les signes d’un conflit latent ou larvé au sein de son équipe.",
+        "Identifier les causes d’un conflit au sein de son équipe et les analyser.",
+        "Mettre en œuvre des techniques et tactiques de gestion de conflit appropriées à la situation.",
+        "Se positionner en tant que cadre par rapport à la gestion de conflits dans son environnement professionnel.",
+        "Transférer les enseignements importants du module dans leur activité professionnelle.",
+        "Comprendre sa propre représentation de l’individu et les conceptions de l’individu.",
+        "Développer la perception d’autrui, la sensibilité aux autres, l'empathie et adapter son comportement envers autrui.",
+        "Analyser les structures, processus et dynamiques d’un groupe et de la collaboration.",
+        "Identifier les rôles dans une équipe et gérer le partage des rôles au sein de l’équipe.",
+        "Comprendre la motivation et favoriser l’encouragement à l’auto-motivation.",
+        "Définir un style et une technique personnels de direction, ainsi que les différents styles de direction.",
+        "Identifier les types de conflits et leurs risques.",
+        "Appliquer la gestion de conflit, l'arbitrage, la médiation et la résolution de problème.",
+        "Savoir anticiper le conflit.",
+        "Savoir agir sur le conflit.",
+        "Maitriser la communication lors du conflit (entretien)."
+        
+        ],
+        pdf: "1-5-2 GEST-EQ_Descriptif.pdf",
+        debut: "21.10.2026",
+        fin: "08.12.2026",
+        examen: "08.12.2026",
+        progression: 0
+    }
+];
+
+function getNumeroSemaine(d) {
+    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+    const anneeDebut = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    return Math.ceil((((date - anneeDebut) / 86400000) + 1) / 7);
+}
+
+https.get(URL_ICAL, (res) => {
+    let data = '';
+
+    res.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    res.on('end', () => {
+        try {
+            const events = ical.parseICS(data);
+            const agendaSemaine = {
+                "Lundi": [], "Mardi": [], "Mercredi": [], "Jeudi": [], "Vendredi": []
+            };
+
+            const aujourdHui = new Date();
+            const semaineActuelle = getNumeroSemaine(aujourdHui);
+            const anneeActuelle = aujourdHui.getFullYear();
+            const joursNoms = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+
+            for (let k in events) {
+                if (events.hasOwnProperty(k)) {
+                    const ev = events[k];
+                    if (ev.type === 'VEVENT') {
+                        const dateDebut = new Date(ev.start);
+                        if (getNumeroSemaine(dateDebut) === semaineActuelle && dateDebut.getFullYear() === anneeActuelle) {
+                            const nomJour = joursNoms[dateDebut.getDay()];
+
+                            if (agendaSemaine[nomJour]) {
+                                let rawSummary = ev.summary;
+                                let titreCours = (typeof rawSummary === 'object' && rawSummary !== null) 
+                                    ? (rawSummary.val || JSON.stringify(rawSummary)) 
+                                    : rawSummary;
+
+                                titreCours = (titreCours || "").trim();
+
+                                if (titreCours && !agendaSemaine[nomJour].includes(titreCours)) {
+                                    agendaSemaine[nomJour].push(titreCours);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            mesCours.forEach(cours => {
+                if (cours.examen) {
+                    const partsExamen = cours.examen.split('.');
+                    const dateExamen = new Date(`${partsExamen[2]}-${partsExamen[1]}-${partsExamen[0]}`);
+                    cours.estArchive = aujourdHui > dateExamen;
+                }
+            });
+
+            const donneesGlobales = {
+                cours: mesCours,
+                agenda: agendaSemaine
+            };
+
+            fs.writeFileSync(CHEMIN_DONNEES, JSON.stringify(donneesGlobales, null, 4), 'utf-8');
+            console.log("✅ Synchronisation effectuée avec succès !");
+        } catch (err) {
+            console.error("❌ Erreur de traitement :", err.message);
+        }
+    });
+}).on("error", (err) => {
+    console.error("⚠️ Erreur réseau :", err.message);
+});
