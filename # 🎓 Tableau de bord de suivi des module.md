@@ -12,32 +12,32 @@ Ce projet permet d'afficher et de gérer dynamiquement les modules de cours à p
 
 ## ✨ Fonctionnalités principales
 
-* **📊 Suivi de progression automatique** : 
-  * Cochez vos objectifs au fur et à mesure.
-  * Calcul de l'avancement en pourcentage avec barre de progression dynamique.
-  * Sauvegarde automatique de votre état de progression dans le navigateur (`localStorage`).
+- **📊 Suivi de progression automatique** :
+  - Cochez vos objectifs au fur et à mesure.
+  - Calcul de l'avancement en pourcentage avec barre de progression dynamique.
+  - Sauvegarde automatique de votre état de progression dans le navigateur (`localStorage`).
 
-* **🔍 Mode Focus & Visualiseur PDF** :
-  * Affichage de la documentation de cours directement dans un visualiseur PDF dédié.
-  * Isolation du module étudié et défilement fluide vers le document.
+- **🔍 Mode Focus & Visualiseur PDF** :
+  - Affichage de la documentation de cours directement dans un visualiseur PDF dédié.
+  - Isolation du module étudié et défilement fluide vers le document.
 
-* **🎙️ Commandes vocales (Web Speech API)** :
-  * **Navigation** : Défilement vers l'agenda, retour au haut ou au bas de page.
-  * **Thème** : Basculez entre le *mode sombre* et le *mode clair* à la voix.
-  * **Recherche & Focus** : Dites *"Affiche module [nom]"* pour mettre en surbrillance un cours, ou *"PDF [nom]"* pour ouvrir directement son document.
+- **🎙️ Commandes vocales (Web Speech API)** :
+  - **Navigation** : Défilement vers l'agenda, retour au haut ou au bas de page.
+  - **Thème** : Basculez entre le _mode sombre_ et le _mode clair_ à la voix.
+  - **Recherche & Focus** : Dites _"Affiche module [nom]"_ pour mettre en surbrillance un cours, ou _"PDF [nom]"_ pour ouvrir directement son document.
 
-* **⚙️ Générateur dynamique** :
-  * Gestion centralisée des données dans `donnees.json` générées automatiquement via `generateur.js`.
-  * Prise en charge automatique des nouveaux badges de cours sans modifier le code principal.
+- **⚙️ Générateur dynamique** :
+  - Gestion centralisée des données dans `donnees.json` générées automatiquement via `generateur.js`.
+  - Prise en charge automatique des nouveaux badges de cours sans modifier le code principal.
 
 ---
 
 ## 🛠️ Technologies utilisées
 
-* **HTML5 / CSS3** : Structure et mise en page responsive.
-* **JavaScript (ES6+)** : Logique dynamique, manipulation du DOM, `fetch` et `localStorage`.
-* **Web Speech API** : Reconnaissance vocale native pour le contrôle mains libres.
-* **JSON** : Structure des données des cours, objectifs et emplois du temps.
+- **HTML5 / CSS3** : Structure et mise en page responsive.
+- **JavaScript (ES6+)** : Logique dynamique, manipulation du DOM, `fetch` et `localStorage`.
+- **Web Speech API** : Reconnaissance vocale native pour le contrôle mains libres.
+- **JSON** : Structure des données des cours, objectifs et emplois du temps.
 
 ---
 
@@ -50,3 +50,4 @@ Ce projet permet d'afficher et de gérer dynamiquement les modules de cours à p
 ├── generateur.js     # Script de génération du fichier de données
 ├── donnees.json      # Base de données JSON des modules et de l'agenda
 └── README.md         # Documentation du projet
+```

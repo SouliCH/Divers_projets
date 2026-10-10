@@ -1,0 +1,19 @@
+# Query: Connaitre
+# ContextLines: 1
+
+3 résultats - Fichiers 3
+
+donnees.json:
+  30          "Savoir écrire un programme à l’aide d’un langage de programmation structuré",
+  31:         "Connaître et savoir utiliser les différentes expressions d’un langage de programmation",
+  32          "Comprendre la notion de maintenabilité du code ; bonnes pratiques",
+
+generateur.js:
+  39        "Savoir écrire un programme à l’aide d’un langage de programmation structuré",
+  40:       "Connaître et savoir utiliser les différentes expressions d’un langage de programmation",
+  41        "Comprendre la notion de maintenabilité du code ; bonnes pratiques",
+
+Liste_objectifPec.md:
+  15  Savoir écrire un programme à l’aide d’un langage de programmation structuré
+  16: Connaître et savoir utiliser les différentes expressions d’un langage de programmation
+  17  Comprendre la notion de maintenabilité du code ; bonnes pratiques
